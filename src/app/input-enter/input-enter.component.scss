@@ -1,0 +1,9 @@
+.text-field__group .text-field__input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  position: relative;
+  z-index: 2;
+  @media (max-width: 650px) {
+    font-size: smaller;
+  }
+}

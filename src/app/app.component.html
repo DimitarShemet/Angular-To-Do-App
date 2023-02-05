@@ -1,0 +1,13 @@
+<div class="App">
+  <div class="wrapper">
+    <app-enter
+      [noteName]="noteName"
+      (sendNoteName)="changeNoteName($event)"
+    ></app-enter>
+    <app-filter
+      [filterTag]="filterTag"
+      (sendFilterTag)="changeFilterTag($event)"
+    ></app-filter>
+  </div>
+  <app-list [newNoteName]="noteName" [newFilterTag]="filterTag"></app-list>
+</div>

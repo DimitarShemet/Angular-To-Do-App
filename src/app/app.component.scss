@@ -1,0 +1,16 @@
+.App {
+  margin: 40px auto;
+}
+.wrapper {
+  width: 400px;
+  margin: auto;
+  @media (max-width: 650px) {
+    width: 300px;
+  }
+  @media (max-width: 420px) {
+    width: 300px;
+  }
+}
+svg {
+  cursor: pointer;
+}

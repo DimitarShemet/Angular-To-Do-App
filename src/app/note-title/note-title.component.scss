@@ -1,0 +1,43 @@
+input {
+  border: none;
+  background-color: #74d7ff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: larger;
+  color: aliceblue;
+  font-style: italic;
+}
+
+input:focus-visible {
+  outline: none;
+}
+.note__name {
+  margin-bottom: 20px;
+  box-shadow: 4px 7px 13px dodgerblue;
+  border-radius: 16px;
+  background-color: cornflowerblue;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  @media (max-width: 420px) {
+    font-size: smaller;
+  }
+  span {
+    width: 14px;
+    height: 18px;
+  }
+  input {
+    background-color: cornflowerblue;
+  }
+  svg:hover {
+    path {
+      fill: red;
+    }
+  }
+}
+.tag__plus {
+  text-align: center;
+}
