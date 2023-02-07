@@ -1,7 +1,7 @@
 <div class="list_wrapper">
   <div class="list">
     <app-note
-      *ngFor="let note of data"
+      *ngFor="let note of data | filterNotes : newFilterTag"
       [tags]="note.tags"
       [title]="note.name"
       [id]="note.id"
@@ -9,6 +9,8 @@
       (removeNote)="deleteNote($event)"
       (removeTag)="deleteTag($event)"
       (addNewTag)="appendTag($event)"
+      (changeTitle)="changeTitle($event)"
+      (changeTag)="changeTag($event)"
     ></app-note>
   </div>
 </div>

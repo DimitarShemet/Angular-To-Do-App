@@ -9,5 +9,9 @@
       (sendFilterTag)="changeFilterTag($event)"
     ></app-filter>
   </div>
-  <app-list [newNoteName]="noteName" [newFilterTag]="filterTag"></app-list>
+  <app-list
+    [newNoteName]="noteName"
+    [newFilterTag]="filterTag"
+    (clearFilterValue)="clearFilterValue()"
+  ></app-list>
 </div>

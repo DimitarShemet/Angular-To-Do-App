@@ -14,6 +14,7 @@ import { RedColorDirective } from './shared/directives/red-color.directive';
 import { InputEnterComponent } from './input-enter/input-enter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputFilterComponent } from './input-filter/input-filter.component';
+import { FilterNotesPipe } from './list/pipes/filter-notes.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { InputFilterComponent } from './input-filter/input-filter.component';
     RedColorDirective,
     InputEnterComponent,
     InputFilterComponent,
+    FilterNotesPipe,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   providers: [],

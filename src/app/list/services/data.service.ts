@@ -11,8 +11,10 @@ export class DataService {
       name,
       tags: [],
     });
+    return data;
   }
-  getNewId(data: DataItem[]) {
+
+  getNewId(data: DataItem[]): number {
     return (
       data.reduce((maxId, note) => {
         const currId = note.id;
@@ -20,9 +22,11 @@ export class DataService {
       }, 0) + 1
     );
   }
-  getNoteIndexById(data: DataItem[], id: number) {
+
+  getNoteIndexById(data: DataItem[], id: number): number {
     return data.findIndex((elem) => elem.id === id);
   }
+
   removeTag(data: DataItem[], id: number, index: number): DataItem[] {
     const noteIndex = this.getNoteIndexById(data, id);
     if (noteIndex !== -1) {
@@ -34,6 +38,7 @@ export class DataService {
     }
     return data;
   }
+
   addNewTag(data: DataItem[], id: number, value?: string): DataItem[] {
     const noteIndex = this.getNoteIndexById(data, id);
     if (noteIndex !== -1) {
@@ -43,6 +48,34 @@ export class DataService {
       } else {
         updatedData[noteIndex].tags.push('#');
       }
+      return updatedData;
+    }
+    return data;
+  }
+  changeNoteName(data: DataItem[], id: number, value: string): DataItem[] {
+    const noteIndex = this.getNoteIndexById(data, id);
+    if (noteIndex !== -1) {
+      const updatedNote = { ...data[noteIndex] };
+      updatedNote.name = value;
+      const updatedData = [...data];
+      updatedData[noteIndex] = updatedNote;
+      return updatedData;
+    }
+    return data;
+  }
+
+  changeTagName(
+    data: DataItem[],
+    id: number,
+    value: string,
+    index: number
+  ): DataItem[] {
+    const noteIndex = this.getNoteIndexById(data, id);
+    if (noteIndex !== -1) {
+      const updatedNote = { ...data[noteIndex] };
+      updatedNote.tags[index] = value;
+      const updatedData = [...data];
+      updatedData[noteIndex] = updatedNote;
       return updatedData;
     }
     return data;

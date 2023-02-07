@@ -7,12 +7,15 @@
       [id]="id"
       (sendId)="sendId($event)"
       (addTag)="addTag()"
+      (sendTitle)="sendTitle($event)"
     >
     </app-note-title>
+
     <app-note-tag
       *ngFor="let tag of tags; index as i"
       [tag]="tag"
       (sendTag)="sendTag($event)"
+      (changeTagValue)="changeTagValue($event)"
       [tagIndex]="i"
       [id]="id"
     >

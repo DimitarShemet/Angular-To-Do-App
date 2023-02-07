@@ -1,8 +1,15 @@
-import { Component, EventEmitter, forwardRef, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Output,
+  Input,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
   NG_VALUE_ACCESSOR,
+  Validators,
 } from '@angular/forms';
 
 @Component({
@@ -18,16 +25,16 @@ import {
   ],
 })
 export class InputFilterComponent implements ControlValueAccessor {
-  filterControl = new FormControl();
-  onChange: any;
-  onTouch: any;
   @Output() sendFilterWord = new EventEmitter();
+
+  filterControl = new FormControl('', Validators.required);
+  onChange?: Function;
+  onTouch?: Function;
 
   ngOnInit() {
     this.filterControl.valueChanges.subscribe((val) => {
       if (this.onChange) {
         this.onChange(val);
-        console.log(val);
       }
     });
   }
@@ -43,5 +50,6 @@ export class InputFilterComponent implements ControlValueAccessor {
   }
   inputChange() {
     this.sendFilterWord.emit(this.filterControl.value);
+    this.filterControl.reset();
   }
 }

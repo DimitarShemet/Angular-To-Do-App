@@ -7,12 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   noteName = '';
-  filterTag = '';
+  filterTag: string | null = '';
+
   changeNoteName(name: string) {
     this.noteName = name;
     console.log(this.noteName);
   }
-  changeFilterTag(filterTag: string) {
+
+  changeFilterTag(filterTag: string | null) {
     this.filterTag = filterTag;
+  }
+
+  clearFilterValue() {
+    this.filterTag = '';
   }
 }

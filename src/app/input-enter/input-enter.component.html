@@ -1,10 +1,22 @@
-<input
-  class="text-field__input"
-  type="search"
-  id="search"
-  name="search"
-  placeholder="Введите название заметки"
-  value=""
-  [formControl]="enterControl"
-  (input)="inputChange()"
-/>
+<div class="top_field">
+  <input
+    class="text-field__input"
+    type="search"
+    id="search"
+    name="search"
+    placeholder="Введите название"
+    value=""
+    [formControl]="enterControl"
+  />
+  <button
+    class="text-field__btn"
+    [disabled]="enterControl.invalid"
+    type="button"
+    (click)="inputChange()"
+  >
+    Добавить
+  </button>
+</div>
+<small class="validation" *ngIf="enterControl.invalid && enterControl.touched">
+  Поле не может быть пустым, заполните его
+</small>

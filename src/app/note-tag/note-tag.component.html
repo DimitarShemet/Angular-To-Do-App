@@ -1,5 +1,19 @@
 <div class="tag">
-  <input [(ngModel)]="tag" (input)="changeTag()" appRedColor />
+  <div [formGroup]="form">
+    <div formArrayName="tags">
+      <ng-container
+        *ngFor="let input of form.controls.tags.controls; let i = index"
+      >
+        <input
+          (blur)="changeTag()"
+          (keyup.enter)="changeTag()"
+          appRedColor
+          [formControlName]="i"
+          random="true"
+        />
+      </ng-container>
+    </div>
+  </div>
   <span (click)="removeTag()">
     <svg
       width="22"

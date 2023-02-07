@@ -9,6 +9,7 @@ import {
   ControlValueAccessor,
   FormControl,
   NG_VALUE_ACCESSOR,
+  Validators,
 } from '@angular/forms';
 
 @Component({
@@ -28,9 +29,9 @@ export class InputEnterComponent implements ControlValueAccessor {
 
   @Output() sendEnterWord = new EventEmitter();
 
-  enterControl = new FormControl();
-  onChange: any;
-  onTouch: any;
+  enterControl = new FormControl('', Validators.required);
+  onChange?: Function;
+  onTouch?: Function;
 
   constructor() {}
 
@@ -55,5 +56,6 @@ export class InputEnterComponent implements ControlValueAccessor {
 
   inputChange() {
     this.sendEnterWord.emit(this.enterControl.value);
+    this.enterControl.reset();
   }
 }

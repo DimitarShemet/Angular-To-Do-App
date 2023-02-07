@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-filter',
@@ -7,19 +7,14 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent {
-  @Input() filterTag?: string;
+  @Input() filterTag?: string | null;
 
-  @Output() sendFilterTag = new EventEmitter<string>();
-  form = this.fb.group({
-    filterControl: ['', Validators.required],
-  });
+  @Output() sendFilterTag = new EventEmitter<string | null>();
 
+  filterControl = new FormControl('');
   constructor(public fb: FormBuilder) {}
 
-  changeFilterWord(filterWord: string) {
-    this.filterTag = filterWord;
-  }
-  sendFilterWord() {
-    this.sendFilterTag.emit(this.filterTag);
+  sendFilterWord(word: string) {
+    this.sendFilterTag.emit(word);
   }
 }

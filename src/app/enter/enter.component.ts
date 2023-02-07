@@ -10,15 +10,14 @@ export class EnterComponent {
   @Input() noteName?: string;
 
   @Output() sendNoteName = new EventEmitter<string>();
-  formReview = this.fb.group({
+
+  constructor(public fb: FormBuilder) {}
+
+  form = this.fb.group({
     enter: ['', Validators.required],
   });
-  changeEnterWord(enterWord: string) {
-    this.noteName = enterWord;
-  }
 
-  addNote() {
-    this.sendNoteName.emit(this.noteName);
+  changeEnterWord(enterWord: string) {
+    this.sendNoteName.emit(enterWord);
   }
-  constructor(public fb: FormBuilder) {}
 }

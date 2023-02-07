@@ -1,17 +1,12 @@
 <div class="enter">
   <div class="text-field">
     <label class="text-field__label" htmlFor="search"> Добавить заметку </label>
-    <div class="text-field__group">
-      <form [formGroup]="formReview">
-        <app-input-enter
-          formControlName="enter"
-          (sendEnterWord)="changeEnterWord($event)"
-        >
-        </app-input-enter>
-      </form>
-      <button class="text-field__btn" type="button" (click)="addNote()">
-        Добавить
-      </button>
+    <div class="text-field__group" [formGroup]="form">
+      <app-input-enter
+        formControlName="enter"
+        (sendEnterWord)="changeEnterWord($event)"
+      >
+      </app-input-enter>
     </div>
   </div>
 </div>

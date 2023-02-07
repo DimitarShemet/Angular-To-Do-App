@@ -1,8 +1,22 @@
-.text-field__group .text-field__input {
+.top_field {
+  display: flex;
+}
+.validation {
+  color: red;
+}
+.text-field__input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   position: relative;
   z-index: 2;
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+
   @media (max-width: 650px) {
     font-size: smaller;
   }

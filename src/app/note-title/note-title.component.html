@@ -1,5 +1,12 @@
 <div class="note__name">
-  <input [(ngModel)]="title" (input)="changeTitle()" appRedColor />
+  <div [formGroup]="form">
+    <input
+      (keyup.enter)="changeTitle()"
+      (blur)="changeTitle()"
+      appRedColor
+      formControlName="title"
+    />
+  </div>
   <span (click)="removeNote()">
     <svg
       width="14"

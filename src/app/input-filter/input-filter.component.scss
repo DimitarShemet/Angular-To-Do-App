@@ -1,3 +1,17 @@
 .text-field__icon input {
   padding-right: 2.5rem;
 }
+.top_field {
+  display: flex;
+}
+.validation {
+  color: red;
+}
+input {
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+}
