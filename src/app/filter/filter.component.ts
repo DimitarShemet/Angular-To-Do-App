@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-filter',
@@ -12,7 +12,6 @@ export class FilterComponent {
   @Output() sendFilterTag = new EventEmitter<string | null>();
 
   filterControl = new FormControl('');
-  constructor(public fb: FormBuilder) {}
 
   sendFilterWord(word: string) {
     this.sendFilterTag.emit(word);

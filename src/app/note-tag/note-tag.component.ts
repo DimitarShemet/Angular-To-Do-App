@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 import { DataForChangeTag } from '../shared/interfaces/dataForChangeTag';
 import { DataForDeleteTag } from '../shared/interfaces/dataForDeleteTag';
 
@@ -22,19 +23,22 @@ export class NoteTagComponent {
     this.form = new FormGroup({
       tags: new FormArray([new FormControl(this.tag)]),
     });
-  }
 
-  changeTag() {
-    this.tag = this.form.get('tags').value[0];
-    if (
-      this.tagIndex !== undefined &&
-      this.tag !== undefined &&
-      this.id !== undefined
-    )
-      this.changeTagValue.emit({
-        id: this.id,
-        tag: this.tag,
-        tagIndex: this.tagIndex,
+    this.form
+      .get('tags')
+      .controls[0].valueChanges.pipe(debounceTime(500))
+      .subscribe((value: string) => {
+        console.log(value);
+        if (
+          this.tagIndex !== undefined &&
+          this.tag !== undefined &&
+          this.id !== undefined
+        )
+          this.changeTagValue.emit({
+            id: this.id,
+            tag: value,
+            tagIndex: this.tagIndex,
+          });
       });
   }
 

@@ -33,8 +33,6 @@ export class InputEnterComponent implements ControlValueAccessor {
   onChange?: Function;
   onTouch?: Function;
 
-  constructor() {}
-
   ngOnInit() {
     this.enterControl.valueChanges.subscribe((val) => {
       if (this.onChange) {

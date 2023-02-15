@@ -1,9 +1,9 @@
 <div class="enter">
   <div class="text-field">
     <label class="text-field__label" htmlFor="search"> Добавить заметку </label>
-    <div class="text-field__group" [formGroup]="form">
+    <div class="text-field__group">
       <app-input-enter
-        formControlName="enter"
+        [formControl]="enterControl"
         (sendEnterWord)="changeEnterWord($event)"
       >
       </app-input-enter>

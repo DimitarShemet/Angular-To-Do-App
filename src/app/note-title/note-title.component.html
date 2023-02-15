@@ -1,11 +1,6 @@
 <div class="note__name">
   <div [formGroup]="form">
-    <input
-      (keyup.enter)="changeTitle()"
-      (blur)="changeTitle()"
-      appRedColor
-      formControlName="title"
-    />
+    <input appRedColor formControlName="title" #input />
   </div>
   <span (click)="removeNote()">
     <svg

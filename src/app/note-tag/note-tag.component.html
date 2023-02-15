@@ -4,13 +4,7 @@
       <ng-container
         *ngFor="let input of form.controls.tags.controls; let i = index"
       >
-        <input
-          (blur)="changeTag()"
-          (keyup.enter)="changeTag()"
-          appRedColor
-          [formControlName]="i"
-          random="true"
-        />
+        <input appRedColor [formControlName]="i" />
       </ng-container>
     </div>
   </div>

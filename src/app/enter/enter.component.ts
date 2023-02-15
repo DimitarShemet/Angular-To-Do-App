@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-enter',
@@ -11,11 +11,7 @@ export class EnterComponent {
 
   @Output() sendNoteName = new EventEmitter<string>();
 
-  constructor(public fb: FormBuilder) {}
-
-  form = this.fb.group({
-    enter: ['', Validators.required],
-  });
+  enterControl = new FormControl('');
 
   changeEnterWord(enterWord: string) {
     this.sendNoteName.emit(enterWord);
