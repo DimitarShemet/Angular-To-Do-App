@@ -11,6 +11,8 @@ import {
   NG_VALUE_ACCESSOR,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AddNote } from '../store/actions/actions';
 
 @Component({
   selector: 'app-input-enter',
@@ -27,11 +29,11 @@ import {
 export class InputEnterComponent implements ControlValueAccessor {
   @Input() noteName?: string;
 
-  @Output() sendEnterWord = new EventEmitter();
-
   enterControl = new FormControl('', Validators.required);
   onChange?: Function;
   onTouch?: Function;
+
+  constructor(public store: Store) {}
 
   ngOnInit() {
     this.enterControl.valueChanges.subscribe((val) => {
@@ -51,8 +53,8 @@ export class InputEnterComponent implements ControlValueAccessor {
     this.onTouch = fn;
   }
 
-  inputChange() {
-    this.sendEnterWord.emit(this.enterControl.value);
+  addNote() {
+    this.store.dispatch(new AddNote({ name: this.enterControl.value }));
     this.enterControl.reset();
   }
 }

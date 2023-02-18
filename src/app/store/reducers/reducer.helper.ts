@@ -50,6 +50,7 @@ export const changeTitle = (
   }
   return data;
 };
+
 export const changeTag = (
   data: DataItem[],
   id: number,
@@ -65,4 +66,22 @@ export const changeTag = (
     return updatedData;
   }
   return data;
+};
+
+export const addNote = (data: DataItem[], id: number, name: string) => {
+  data.push({
+    id,
+    name,
+    tags: [],
+  });
+  return data;
+};
+
+export const getNewId = (data: DataItem[]): number => {
+  return (
+    data.reduce((maxId, note) => {
+      const currId = note.id;
+      return currId > maxId ? currId : maxId;
+    }, 0) + 1
+  );
 };

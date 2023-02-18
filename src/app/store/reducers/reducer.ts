@@ -1,6 +1,13 @@
 import { ToDoState } from 'src/app/shared/interfaces/state';
 import { ToDoActions, ToDoActionsTypes } from '../actions/actions';
-import { removeTag, addNewTag, changeTitle, changeTag } from './reducer.helper';
+import {
+  removeTag,
+  addNewTag,
+  changeTitle,
+  changeTag,
+  addNote,
+  getNewId,
+} from './reducer.helper';
 
 const initialState: ToDoState = {
   toDoData: [],
@@ -60,6 +67,25 @@ export const toDoReducer = (
           action.payload.tagIndex
         ),
       };
+
+    case ToDoActionsTypes.addNote:
+      return {
+        ...state,
+        toDoData: addNote(
+          [...state.toDoData],
+          getNewId([...state.toDoData]),
+          action.payload.name
+        ),
+      };
+
+    case ToDoActionsTypes.filterNotesByTag:
+      return {
+        ...state,
+        toDoData: state.toDoData.filter((elem) =>
+          elem.tags.includes(action.payload.filterWord)
+        ),
+      };
+
     default:
       return state;
   }

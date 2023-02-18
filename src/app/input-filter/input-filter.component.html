@@ -6,7 +6,7 @@
   placeholder="Введите название тега"
   [formControl]="filterControl"
 />
-<span class="text-field__aicon" (click)="inputChange()">
+<span class="text-field__aicon" (click)="filterNotes()">
   <svg
     *ngIf="filterControl.valid && filterControl.touched"
     xmlns="http://www.w3.org/2000/svg"

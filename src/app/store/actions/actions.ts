@@ -8,6 +8,8 @@ export enum ToDoActionsTypes {
   addTag = '[Todo] add Tag',
   changeTitle = '[Todo] change Title',
   changeTag = '[Todo] change Tag',
+  addNote = '[Todo] add Note',
+  filterNotesByTag = '[Todo] filter Notes',
 }
 
 export class LoadStateFromStorage implements Action {
@@ -39,10 +41,21 @@ export class changeTag implements Action {
   constructor(public payload: { id: number; tag: string; tagIndex: number }) {}
 }
 
+export class AddNote implements Action {
+  readonly type = ToDoActionsTypes.addNote;
+  constructor(public payload: { name: string }) {}
+}
+export class filterNotesByTag implements Action {
+  readonly type = ToDoActionsTypes.filterNotesByTag;
+  constructor(public payload: { filterWord: string }) {}
+}
+
 export type ToDoActions =
   | LoadStateFromStorage
   | DeleteNote
   | DeleteTag
   | AddTag
   | changeTitle
-  | changeTag;
+  | changeTag
+  | AddNote
+  | filterNotesByTag;

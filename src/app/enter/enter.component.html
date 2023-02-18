@@ -2,11 +2,7 @@
   <div class="text-field">
     <label class="text-field__label" htmlFor="search"> Добавить заметку </label>
     <div class="text-field__group">
-      <app-input-enter
-        [formControl]="enterControl"
-        (sendEnterWord)="changeEnterWord($event)"
-      >
-      </app-input-enter>
+      <app-input-enter [formControl]="enterControl"> </app-input-enter>
     </div>
   </div>
 </div>

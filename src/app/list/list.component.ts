@@ -23,11 +23,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnChanges, OnInit {
-  @Input() newNoteName?: string;
-  @Input() newFilterTag: string | null;
-  @Output() clearFilterValue = new EventEmitter<string>();
-
+export class ListComponent implements OnInit {
   data: DataItem[];
 
   constructor(
@@ -36,37 +32,14 @@ export class ListComponent implements OnChanges, OnInit {
     public dataService: DataService,
     public localStorageHelperService: LocalStorageHelperService,
     public SyncStorageService: TodoSyncStorageService
-  ) {
-    // this.newFilterTag = '';
-  }
+  ) {}
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.SyncStorageService.init();
     this.store
       .pipe(map((AppState) => AppState.appData.toDoData))
       .subscribe((toDoState) => {
-        console.log('data изменилась');
         this.data = toDoState;
       });
-  }
-  ngOnChanges() {
-    if (this.newNoteName) {
-      const updatedData = this.dataService.addNote(
-        this.data,
-        this.dataService.getNewId(this.data),
-        this.newNoteName
-      );
-      this.data = updatedData;
-      this.localStorageHelperService.setDataToLocalStorage(this.data);
-    }
-
-    if (this.newFilterTag) {
-      this.data = this.data.filter((elem) =>
-        elem.tags.includes(this.newFilterTag as string)
-      );
-      this.localStorageHelperService.setDataToLocalStorage(this.data);
-      this.newFilterTag = '';
-    }
   }
 }

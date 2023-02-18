@@ -1,17 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Output,
-  Input,
-} from '@angular/core';
+import { Component, EventEmitter, forwardRef, Output } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
   NG_VALUE_ACCESSOR,
   Validators,
 } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
+import { filterNotesByTag } from '../store/actions/actions';
 @Component({
   selector: 'app-input-filter',
   templateUrl: './input-filter.component.html',
@@ -31,6 +26,8 @@ export class InputFilterComponent implements ControlValueAccessor {
   onChange?: Function;
   onTouch?: Function;
 
+  constructor(public store: Store) {}
+
   ngOnInit() {
     this.filterControl.valueChanges.subscribe((val) => {
       if (this.onChange) {
@@ -48,8 +45,10 @@ export class InputFilterComponent implements ControlValueAccessor {
   registerOnTouched(fn: Function) {
     this.onTouch = fn;
   }
-  inputChange() {
-    this.sendFilterWord.emit(this.filterControl.value);
+  filterNotes() {
+    this.store.dispatch(
+      new filterNotesByTag({ filterWord: this.filterControl.value })
+    );
     this.filterControl.reset();
   }
 }

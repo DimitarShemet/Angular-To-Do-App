@@ -3,10 +3,7 @@
     <label class="text-field__label" htmlFor="search"> Найти по тегу </label>
     <div class="text-field__icon">
       <div>
-        <app-input-filter
-          [formControl]="filterControl"
-          (sendFilterWord)="sendFilterWord($event)"
-        ></app-input-filter>
+        <app-input-filter [formControl]="filterControl"></app-input-filter>
       </div>
     </div>
   </div>
