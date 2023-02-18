@@ -15,6 +15,11 @@ import { InputEnterComponent } from './input-enter/input-enter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputFilterComponent } from './input-filter/input-filter.component';
 import { FilterNotesPipe } from './list/pipes/filter-notes.pipe';
+import { StoreModule } from '@ngrx/store';
+import { toDoReducer } from './store/reducers/reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './store/reducers';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,15 @@ import { FilterNotesPipe } from './list/pipes/filter-notes.pipe';
     InputFilterComponent,
     FilterNotesPipe,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

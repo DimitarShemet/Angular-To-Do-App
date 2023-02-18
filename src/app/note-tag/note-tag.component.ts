@@ -1,8 +1,10 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { debounceTime } from 'rxjs/operators';
 import { DataForChangeTag } from '../shared/interfaces/dataForChangeTag';
 import { DataForDeleteTag } from '../shared/interfaces/dataForDeleteTag';
+import { changeTag, DeleteTag } from '../store/actions/actions';
 
 @Component({
   selector: 'app-note-tag',
@@ -14,10 +16,8 @@ export class NoteTagComponent {
   @Input() tagIndex?: number;
   @Input() id?: number;
 
-  @Output() sendTag = new EventEmitter<DataForDeleteTag>();
-  @Output() changeTagValue = new EventEmitter<DataForChangeTag>();
-
   form: any;
+  constructor(public store: Store) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -28,22 +28,15 @@ export class NoteTagComponent {
       .get('tags')
       .controls[0].valueChanges.pipe(debounceTime(500))
       .subscribe((value: string) => {
-        console.log(value);
-        if (
-          this.tagIndex !== undefined &&
-          this.tag !== undefined &&
-          this.id !== undefined
-        )
-          this.changeTagValue.emit({
-            id: this.id,
-            tag: value,
-            tagIndex: this.tagIndex,
-          });
+        this.store.dispatch(
+          new changeTag({ id: this.id, tag: value, tagIndex: this.tagIndex })
+        );
       });
   }
 
   removeTag() {
-    if (this.tagIndex !== undefined && this.id !== undefined)
-      this.sendTag.emit({ tagIndex: this.tagIndex, id: this.id });
+    this.store.dispatch(
+      new DeleteTag({ id: this.id, tagIndex: this.tagIndex })
+    );
   }
 }

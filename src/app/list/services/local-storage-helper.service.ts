@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataItem } from '../../shared/interfaces/dataInterface';
 import { DbService } from './db.service';
-const DATA_FIELD = 'dataItems';
+export const DATA_FIELD = 'dataItems';
 
 @Injectable({
   providedIn: 'root',

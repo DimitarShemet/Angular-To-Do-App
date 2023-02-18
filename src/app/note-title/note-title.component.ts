@@ -12,6 +12,8 @@ import { DataItem } from '../shared/interfaces/dataInterface';
 import { DataForChangeTitle } from '../shared/interfaces/dataForChangeTitle';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, delay, fromEvent, Observable, map } from 'rxjs';
+import { DeleteNote, AddTag, changeTitle } from '../store/actions/actions';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-note-title',
   templateUrl: './note-title.component.html',
@@ -24,14 +26,12 @@ export class NoteTitleComponent implements OnInit {
   @Input() id?: number;
 
   @Output() sendId = new EventEmitter<number>();
-  @Output() addTag = new EventEmitter<number>();
-  @Output() sendTitle = new EventEmitter<DataForChangeTitle>();
 
   @ViewChild('input', { static: true }) inputRef?: ElementRef;
   form: FormGroup;
   stream$: Observable<any>;
 
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder, public store: Store) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -42,20 +42,15 @@ export class NoteTitleComponent implements OnInit {
       .get('title')
       .valueChanges.pipe(debounceTime(500))
       .subscribe((value) => {
-        console.log(value);
-        if (this.title !== undefined && this.id !== undefined) {
-          this.sendTitle.emit({ title: value, id: this.id });
-        }
+        this.store.dispatch(new changeTitle({ id: this.id, title: value }));
       });
   }
 
   removeNote() {
-    this.sendId.emit(this.id);
+    this.store.dispatch(new DeleteNote({ id: this.id }));
   }
 
-  changeTitle() {}
-
   addNewTag() {
-    this.addTag.emit(this.id);
+    this.store.dispatch(new AddTag({ id: this.id }));
   }
 }

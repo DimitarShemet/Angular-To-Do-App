@@ -37,7 +37,6 @@ export class InputEnterComponent implements ControlValueAccessor {
     this.enterControl.valueChanges.subscribe((val) => {
       if (this.onChange) {
         this.onChange(val);
-        console.log(val);
       }
     });
   }

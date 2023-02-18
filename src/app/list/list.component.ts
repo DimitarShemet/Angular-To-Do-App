@@ -13,6 +13,10 @@ import { DataForDeleteTag } from '../shared/interfaces/dataForDeleteTag';
 import { DataForChangeTitle } from '../shared/interfaces/dataForChangeTitle';
 import { DataForChangeTag } from '../shared/interfaces/dataForChangeTag';
 import { LocalStorageHelperService } from './services/local-storage-helper.service';
+import { Store } from '@ngrx/store';
+import { TodoSyncStorageService } from '../shared/services/todo-sync-storage.service';
+import { AppState } from '../store/reducers';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -27,15 +31,25 @@ export class ListComponent implements OnChanges, OnInit {
   data: DataItem[];
 
   constructor(
+    private store: Store<AppState>,
     public dbService: DbService,
     public dataService: DataService,
-    public localStorageHelperService: LocalStorageHelperService
+    public localStorageHelperService: LocalStorageHelperService,
+    public SyncStorageService: TodoSyncStorageService
   ) {
-    this.data =
-      localStorageHelperService.getDataFromLocalStorage() ?? dbService.data;
-    this.newFilterTag = '';
+    // this.newFilterTag = '';
   }
 
+  ngOnInit() {
+    console.log('ngOnInit');
+    this.SyncStorageService.init();
+    this.store
+      .pipe(map((AppState) => AppState.appData.toDoData))
+      .subscribe((toDoState) => {
+        console.log('data изменилась');
+        this.data = toDoState;
+      });
+  }
   ngOnChanges() {
     if (this.newNoteName) {
       const updatedData = this.dataService.addNote(
@@ -54,52 +68,5 @@ export class ListComponent implements OnChanges, OnInit {
       this.localStorageHelperService.setDataToLocalStorage(this.data);
       this.newFilterTag = '';
     }
-  }
-
-  ngOnInit() {
-    this.localStorageHelperService.setDataToLocalStorage(this.data);
-  }
-
-  deleteNote(id: number) {
-    this.data = this.data.filter((elem) => elem.id !== id);
-    this.localStorageHelperService.setDataToLocalStorage(this.data);
-  }
-
-  deleteTag(obj: DataForDeleteTag) {
-    const updatedData = this.dataService.removeTag(
-      this.data,
-      obj.id,
-      obj.tagIndex
-    );
-    this.data = updatedData;
-    this.localStorageHelperService.setDataToLocalStorage(this.data);
-  }
-
-  appendTag(id: number) {
-    const updatedData = this.dataService.addNewTag(this.data, id);
-    this.data = updatedData;
-    this.localStorageHelperService.setDataToLocalStorage(this.data);
-  }
-
-  changeTitle(data: DataForChangeTitle) {
-    const updatedData = this.dataService.changeNoteName(
-      this.data,
-      data.id,
-      data.title
-    );
-    this.data = updatedData;
-    this.localStorageHelperService.setDataToLocalStorage(this.data);
-  }
-
-  changeTag(data: DataForChangeTag) {
-    console.log(data);
-    const updatedData = this.dataService.changeTagName(
-      this.data,
-      data.id,
-      data.tag,
-      data.tagIndex
-    );
-    this.data = updatedData;
-    this.localStorageHelperService.setDataToLocalStorage(this.data);
   }
 }

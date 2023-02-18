@@ -4,6 +4,8 @@ import { DataItem } from '../shared/interfaces/dataInterface';
 import { DataForDeleteTag } from '../shared/interfaces/dataForDeleteTag';
 import { DataForChangeTitle } from '../shared/interfaces/dataForChangeTitle';
 import { DataForChangeTag } from '../shared/interfaces/dataForChangeTag';
+import { AddTag } from '../store/actions/actions';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
@@ -15,29 +17,9 @@ export class NoteComponent {
   @Input() title?: string;
   @Input() id?: number;
 
-  @Output() addNewTag = new EventEmitter<number>();
-  @Output() removeNote = new EventEmitter<number>();
-  @Output() removeTag = new EventEmitter<DataForDeleteTag>();
-  @Output() changeTitle = new EventEmitter<DataForChangeTitle>();
-  @Output() changeTag = new EventEmitter<DataForChangeTag>();
-
-  sendId(id: number) {
-    this.removeNote.emit(id);
-  }
-
-  sendTag(obj: DataForDeleteTag) {
-    this.removeTag.emit(obj);
-  }
+  constructor(public store: Store) {}
 
   addTag() {
-    this.addNewTag.emit(this.id);
-  }
-
-  sendTitle(data: DataForChangeTitle) {
-    this.changeTitle.emit(data);
-  }
-
-  changeTagValue(data: DataForChangeTag) {
-    this.changeTag.emit(data);
+    this.store.dispatch(new AddTag({ id: this.id }));
   }
 }
