@@ -16,10 +16,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputFilterComponent } from './input-filter/input-filter.component';
 import { FilterNotesPipe } from './list/pipes/filter-notes.pipe';
 import { StoreModule } from '@ngrx/store';
-import { toDoReducer } from './store/reducers/reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './store/reducers';
-import { localStorageSync } from 'ngrx-store-localstorage';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { EffectsModule } from '@ngrx/effects';
+import { ToDoEffects } from './store/effects/todo.effect';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -41,9 +48,19 @@ import { localStorageSync } from 'ngrx-store-localstorage';
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: 'ru',
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
+    EffectsModule.forRoot([ToDoEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -24,11 +24,6 @@ export class TodoSyncStorageService {
     }
     this.isInit = true;
     this.loadFromLocalStorage();
-    this.store
-      .pipe(map((appState) => appState.appData.toDoData))
-      .subscribe((state) => {
-        this.localStorageHelper.setDataToLocalStorage(state);
-      });
   }
 
   loadFromLocalStorage() {

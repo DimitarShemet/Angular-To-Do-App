@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { AddNote } from '../store/actions/actions';
 
 @Component({
@@ -33,7 +34,7 @@ export class InputEnterComponent implements ControlValueAccessor {
   onChange?: Function;
   onTouch?: Function;
 
-  constructor(public store: Store) {}
+  constructor(public store: Store, translate: TranslateService) {}
 
   ngOnInit() {
     this.enterControl.valueChanges.subscribe((val) => {

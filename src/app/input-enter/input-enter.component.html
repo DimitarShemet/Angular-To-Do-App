@@ -4,7 +4,7 @@
     type="search"
     id="search"
     name="search"
-    placeholder="Введите название"
+    [placeholder]="'enter.label' | translate"
     value=""
     [formControl]="enterControl"
   />
@@ -14,7 +14,7 @@
     type="button"
     (click)="addNote()"
   >
-    Добавить
+    {{ "enter.button" | translate }}
   </button>
 </div>
 <small class="validation" *ngIf="enterControl.invalid && enterControl.touched">

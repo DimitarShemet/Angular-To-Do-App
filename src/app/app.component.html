@@ -1,5 +1,13 @@
 <div class="App">
   <div class="wrapper">
+    <div class="language">
+      <span class="language__item" (click)="translate.use('ru')"
+        ><img src="../assets/icons/rus.png" alt="" />
+      </span>
+      <span class="language__item" (click)="translate.use('en')">
+        <img src="../assets/icons/us.png" alt=""
+      /></span>
+    </div>
     <app-enter></app-enter>
     <app-filter></app-filter>
   </div>

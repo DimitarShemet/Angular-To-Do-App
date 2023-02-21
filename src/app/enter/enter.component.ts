@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-enter',
@@ -7,5 +8,6 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./enter.component.scss'],
 })
 export class EnterComponent {
+  constructor(translate: TranslateService) {}
   enterControl = new FormControl('');
 }

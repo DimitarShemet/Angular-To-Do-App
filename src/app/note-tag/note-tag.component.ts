@@ -26,7 +26,7 @@ export class NoteTagComponent {
 
     this.form
       .get('tags')
-      .controls[0].valueChanges.pipe(debounceTime(500))
+      .controls[0].valueChanges.pipe(debounceTime(700))
       .subscribe((value: string) => {
         this.store.dispatch(
           new changeTag({ id: this.id, tag: value, tagIndex: this.tagIndex })

@@ -1,3 +1,4 @@
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ToDoState } from 'src/app/shared/interfaces/state';
 import { ToDoActions, ToDoActionsTypes } from '../actions/actions';
 import {
@@ -23,6 +24,7 @@ export const toDoReducer = (
         ...state,
         toDoData: [...action.payload.state],
       };
+    // написать эффект, который будет работать с сервисом, а сервис в свою очередь изменяет localSotrage, возвращая новый массив
 
     case ToDoActionsTypes.deleteNote:
       return {
@@ -90,3 +92,9 @@ export const toDoReducer = (
       return state;
   }
 };
+
+export const featureSelecetor = createFeatureSelector<ToDoState>('appData');
+export const toDoSelector = createSelector(
+  featureSelecetor,
+  (state) => state.toDoData
+);

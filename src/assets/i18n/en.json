@@ -1,0 +1,11 @@
+{
+  "enter": {
+    "label": "Add note",
+    "placeholder": "Enter the title",
+    "button": "Add"
+  },
+  "filter": {
+    "label": "Search by tag",
+    "placeholder": "Enter tag name"
+  }
+}

@@ -11,6 +11,15 @@
     width: 300px;
   }
 }
+.language {
+  margin: auto;
+  display: flex;
+  width: 200px;
+  justify-content: space-evenly;
+  .language__item {
+    cursor: pointer;
+  }
+}
 svg {
   cursor: pointer;
 }

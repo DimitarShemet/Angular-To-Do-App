@@ -13,10 +13,11 @@ import { DataForDeleteTag } from '../shared/interfaces/dataForDeleteTag';
 import { DataForChangeTitle } from '../shared/interfaces/dataForChangeTitle';
 import { DataForChangeTag } from '../shared/interfaces/dataForChangeTag';
 import { LocalStorageHelperService } from './services/local-storage-helper.service';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TodoSyncStorageService } from '../shared/services/todo-sync-storage.service';
 import { AppState } from '../store/reducers';
 import { map } from 'rxjs/operators';
+import { toDoSelector } from '../store/reducers/reducer';
 
 @Component({
   selector: 'app-list',
@@ -36,10 +37,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.SyncStorageService.init();
-    this.store
-      .pipe(map((AppState) => AppState.appData.toDoData))
-      .subscribe((toDoState) => {
-        this.data = toDoState;
-      });
+    this.store.pipe(select(toDoSelector)).subscribe((toDoState) => {
+      this.data = toDoState;
+    });
   }
 }

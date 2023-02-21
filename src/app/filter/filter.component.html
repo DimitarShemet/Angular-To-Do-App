@@ -1,6 +1,8 @@
 <div class="filter">
   <div class="text-field">
-    <label class="text-field__label" htmlFor="search"> Найти по тегу </label>
+    <label class="text-field__label" htmlFor="search"
+      >{{ "filter.label" | translate }}
+    </label>
     <div class="text-field__icon">
       <div>
         <app-input-filter [formControl]="filterControl"></app-input-filter>

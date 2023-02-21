@@ -3,7 +3,7 @@
   type="search"
   name="search"
   id="search"
-  placeholder="Введите название тега"
+  [placeholder]="'filter.placeholder' | translate"
   [formControl]="filterControl"
 />
 <span class="text-field__aicon" (click)="filterNotes()">

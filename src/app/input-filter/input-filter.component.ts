@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { filterNotesByTag } from '../store/actions/actions';
 @Component({
   selector: 'app-input-filter',
@@ -26,7 +27,7 @@ export class InputFilterComponent implements ControlValueAccessor {
   onChange?: Function;
   onTouch?: Function;
 
-  constructor(public store: Store) {}
+  constructor(public store: Store, translate: TranslateService) {}
 
   ngOnInit() {
     this.filterControl.valueChanges.subscribe((val) => {

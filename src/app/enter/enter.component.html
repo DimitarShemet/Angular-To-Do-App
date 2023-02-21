@@ -1,6 +1,8 @@
 <div class="enter">
   <div class="text-field">
-    <label class="text-field__label" htmlFor="search"> Добавить заметку </label>
+    <label class="text-field__label" htmlFor="search">
+      {{ "enter.label" | translate }}
+    </label>
     <div class="text-field__group">
       <app-input-enter [formControl]="enterControl"> </app-input-enter>
     </div>
